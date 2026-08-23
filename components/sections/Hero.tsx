@@ -1,67 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { FiArrowDown } from "react-icons/fi";
+import { GitHubActivityFeed } from "@/components/ui/GitHubActivityFeed";
 
 export function Hero() {
-  const [blinkState, setBlinkState] = useState<"open" | "closed" | "happy">("open");
-
-  // Periodic random blinking effect (every 3.5 - 6s for 180ms)
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    let blinkEndId: NodeJS.Timeout;
-
-    const scheduleNextBlink = () => {
-      const delay = Math.random() * 2500 + 3500; // 3.5s to 6s
-      timeoutId = setTimeout(() => {
-        setBlinkState("closed");
-        blinkEndId = setTimeout(() => {
-          setBlinkState("open");
-          scheduleNextBlink();
-        }, 180);
-      }, delay);
-    };
-
-    scheduleNextBlink();
-
-    return () => {
-      clearTimeout(timeoutId);
-      clearTimeout(blinkEndId);
-    };
-  }, []);
-
   const handleScrollToProjects = (e: React.MouseEvent) => {
     e.preventDefault();
     const projectsSection = document.getElementById("projects");
     if (projectsSection) {
       projectsSection.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  // ASCII Cat art frames
-  const catArt = {
-    open: `       /\\_____/\\
-      /  o   o  \\
-     ( ==  ^  == )
-      )         (
-     (           )
-    ( (  )   (  ) )
-   (__(__)___(__)__)`,
-    closed: `       /\\_____/\\
-      /  -   -  \\
-     ( ==  ^  == )
-      )         (
-     (           )
-    ( (  )   (  ) )
-   (__(__)___(__)__)`,
-    happy: `       /\\_____/\\
-      /  ^   ^  \\
-     ( ==  v  == )
-      )         (
-     (           )
-    ( (  )   (  ) )
-   (__(__)___(__)__)`,
   };
 
   const containerVariants = {
@@ -142,48 +92,14 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT COLUMN: Animated ASCII Cat Art */}
+        {/* RIGHT COLUMN: Live GitHub Activity Terminal Feed */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
-          className="lg:col-span-5 flex flex-col items-center justify-center mt-4 lg:mt-0"
+          className="lg:col-span-5 flex flex-col items-center justify-center mt-4 lg:mt-0 w-full"
         >
-          <div className="relative group p-5 sm:p-7 md:p-8 rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col items-center max-w-full overflow-hidden">
-            {/* ASCII Container with subtle breathing idle loop and hover reactions */}
-            <motion.div
-              animate={{
-                scale: [1, 1.025, 1],
-              }}
-              transition={{
-                duration: 3.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              whileHover={{
-                rotate: [0, -2, 2, 0],
-                scale: 1.04,
-                transition: { duration: 0.4 },
-              }}
-              onMouseEnter={() => setBlinkState("happy")}
-              onMouseLeave={() => setBlinkState("open")}
-              className="cursor-pointer select-none max-w-full overflow-x-auto py-1"
-              title="Click or hover to pet"
-            >
-              <pre className="font-mono text-[10px] sm:text-xs md:text-sm lg:text-base leading-[1.18] text-[var(--text-primary)] font-bold tracking-normal whitespace-pre">
-                {catArt[blinkState]}
-              </pre>
-            </motion.div>
-
-            {/* ASCII Label / Terminal Status */}
-            <div className="mt-4 pt-3 border-t border-[var(--border)] w-full flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)]">
-              <span className="tracking-wider">// sys.cat.daemon</span>
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{blinkState === "happy" ? "purring" : "active"}</span>
-              </span>
-            </div>
-          </div>
+          <GitHubActivityFeed />
         </motion.div>
       </div>
     </div>

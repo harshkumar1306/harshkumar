@@ -371,7 +371,7 @@ export function Projects() {
                   </div>
 
                   {/* Cover Screenshot Image */}
-                  <div className="relative w-full aspect-[16/9] max-h-[360px] rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)]">
+                  <div className="relative w-full h-52 sm:h-64 md:h-72 lg:h-80 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0">
                     <Image
                       src={project.screenshots.cover}
                       alt={project.screenshots.coverAlt}
@@ -437,7 +437,7 @@ export function Projects() {
                       )}
 
                       {/* Secondary Screenshot */}
-                      <div className="relative w-full aspect-[16/9] max-h-[220px] rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] mt-1">
+                      <div className="relative w-full h-36 sm:h-44 md:h-48 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0 mt-1">
                         <Image
                           src={project.screenshots.secondary}
                           alt={project.screenshots.secondaryAlt}
