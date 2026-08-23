@@ -3,113 +3,98 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
-interface ContributionDay {
+interface RawContributionDay {
   date: string;
-  count: number;
-  level: 0 | 1 | 2 | 3 | 4;
+  contributionCount: number;
+  contributionLevel:
+    | "NONE"
+    | "FIRST_QUARTILE"
+    | "SECOND_QUARTILE"
+    | "THIRD_QUARTILE"
+    | "FOURTH_QUARTILE"
+    | string;
+  weekday?: number;
 }
 
-interface ApiResponse {
-  total?: {
-    lastYear?: number;
-    [year: string]: number | undefined;
-  };
-  contributions: ContributionDay[];
+interface CalendarWeek {
+  contributionDays: RawContributionDay[];
 }
 
-const CACHE_KEY = "gh_contributions_cache_v1";
-const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
+interface CalendarMonth {
+  name: string;
+  firstDay: string;
+  totalWeeks: number;
+}
+
+interface ContributionCalendarResponse {
+  totalContributions: number;
+  weeks: CalendarWeek[];
+  months?: CalendarMonth[];
+}
 
 // Monochrome intensity palette matching the site's warm-minimal aesthetic
 const LEVEL_COLORS: Record<0 | 1 | 2 | 3 | 4, string> = {
-  0: "bg-[#E6E3DB] border-[#DDD9D0]",
+  0: "bg-[#EDEBE6] border-[#E6E3DE]",
   1: "bg-[#C4BFB4] border-[#B5B0A4]",
   2: "bg-[#8E887D] border-[#7F796E]",
   3: "bg-[#524D44] border-[#443F36]",
   4: "bg-[#181716] border-[#0A0A09]",
 };
 
+function getNumericLevel(levelStr: string, count: number): 0 | 1 | 2 | 3 | 4 {
+  switch (levelStr) {
+    case "FOURTH_QUARTILE":
+    case "4":
+      return 4;
+    case "THIRD_QUARTILE":
+    case "3":
+      return 3;
+    case "SECOND_QUARTILE":
+    case "2":
+      return 2;
+    case "FIRST_QUARTILE":
+    case "1":
+      return 1;
+    case "NONE":
+    case "0":
+      return 0;
+    default:
+      if (count === 0) return 0;
+      if (count <= 2) return 1;
+      if (count <= 5) return 2;
+      if (count <= 9) return 3;
+      return 4;
+  }
+}
+
 export function GitHubContributionGraph() {
-  const [data, setData] = useState<ContributionDay[]>([]);
-  const [totalCount, setTotalCount] = useState<number | null>(null);
+  const [calendarData, setCalendarData] =
+    useState<ContributionCalendarResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [hoveredDay, setHoveredDay] = useState<{
-    day: ContributionDay;
+    date: string;
+    count: number;
     x: number;
     y: number;
   } | null>(null);
 
   const fetchContributions = async () => {
-    // 1. Check localStorage cache
     try {
-      const cached = localStorage.getItem(CACHE_KEY);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Date.now() - parsed.timestamp < CACHE_DURATION_MS && parsed.data) {
-          setData(parsed.data.contributions);
-          setTotalCount(
-            parsed.data.total?.lastYear ??
-              parsed.data.contributions.reduce(
-                (acc: number, cur: ContributionDay) => acc + cur.count,
-                0
-              )
-          );
-          setLoading(false);
-          return;
-        }
-      }
-    } catch {
-      // localStorage error fallback
-    }
-
-    // 2. Fetch fresh data
-    try {
-      let res = await fetch(
-        "https://github-contributions-api.jogruber.de/v4/harshkumar1306?y=last"
-      );
-      if (!res.ok) {
-        res = await fetch(
-          "https://github-contributions-api.jogruber.de/v4/harshkumar1306"
-        );
-      }
+      const res = await fetch("/api/github-contributions", {
+        cache: "no-store",
+      });
 
       if (!res.ok) {
-        throw new Error(`API returned ${res.status}`);
+        throw new Error(`API returned status ${res.status}`);
       }
 
-      const json: ApiResponse = await res.json();
-      if (Array.isArray(json.contributions) && json.contributions.length > 0) {
-        // Take the last 365 days
-        const lastDays =
-          json.contributions.length > 365
-            ? json.contributions.slice(-365)
-            : json.contributions;
-
-        const total =
-          json.total?.lastYear ??
-          lastDays.reduce((acc, cur) => acc + cur.count, 0);
-
-        setData(lastDays);
-        setTotalCount(total);
+      const json: ContributionCalendarResponse = await res.json();
+      if (json && Array.isArray(json.weeks) && json.weeks.length > 0) {
+        setCalendarData(json);
         setHasError(false);
-
-        try {
-          localStorage.setItem(
-            CACHE_KEY,
-            JSON.stringify({
-              timestamp: Date.now(),
-              data: {
-                total: { lastYear: total },
-                contributions: lastDays,
-              },
-            })
-          );
-        } catch {
-          // ignore cache write error
-        }
       } else {
-        throw new Error("No contribution records found");
+        throw new Error("Invalid calendar structure returned");
       }
     } catch {
       setHasError(true);
@@ -122,48 +107,19 @@ export function GitHubContributionGraph() {
     fetchContributions();
 
     // 6-hour refresh interval
-    const interval = setInterval(fetchContributions, CACHE_DURATION_MS);
+    const interval = setInterval(fetchContributions, 6 * 60 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
-  // Group days into 52-53 weeks (columns)
-  const { weeks, monthLabels } = useMemo(() => {
-    if (!data.length) return { weeks: [], monthLabels: [] };
+  // Compute month labels aligned with columns
+  const monthLabels = useMemo(() => {
+    if (!calendarData?.weeks?.length) return [];
 
-    const groupedWeeks: ContributionDay[][] = [];
-    let currentWeek: ContributionDay[] = [];
-
-    // The first day's day of week (0 = Sunday, 6 = Saturday)
-    const firstDayOfWeek = new Date(data[0].date).getDay();
-
-    // Pad beginning of first week if not Sunday
-    for (let i = 0; i < firstDayOfWeek; i++) {
-      currentWeek.push({ date: "", count: 0, level: 0 });
-    }
-
-    data.forEach((day) => {
-      currentWeek.push(day);
-      if (currentWeek.length === 7) {
-        groupedWeeks.push(currentWeek);
-        currentWeek = [];
-      }
-    });
-
-    if (currentWeek.length > 0) {
-      // Pad end of last week
-      while (currentWeek.length < 7) {
-        currentWeek.push({ date: "", count: 0, level: 0 });
-      }
-      groupedWeeks.push(currentWeek);
-    }
-
-    // Determine month labels for columns
     const labels: Array<{ text: string; colIndex: number }> = [];
     let lastMonth = -1;
 
-    groupedWeeks.forEach((week, colIdx) => {
-      // Find the first valid date in this week
-      const firstValidDay = week.find((d) => d.date);
+    calendarData.weeks.forEach((week, colIdx) => {
+      const firstValidDay = week.contributionDays.find((d) => d.date);
       if (firstValidDay) {
         const month = new Date(firstValidDay.date).getMonth();
         if (month !== lastMonth) {
@@ -172,13 +128,36 @@ export function GitHubContributionGraph() {
             "default",
             { month: "short" }
           );
-          labels.push({ text: monthName, colIndex: colIdx });
+          // Skip labels that would overlap (fewer than 3 columns from previous)
+          const prevCol = labels.length > 0 ? labels[labels.length - 1].colIndex : -10;
+          if (colIdx - prevCol >= 3) {
+            labels.push({ text: monthName, colIndex: colIdx });
+          }
         }
       }
     });
 
-    return { weeks: groupedWeeks, monthLabels: labels };
-  }, [data]);
+    return labels;
+  }, [calendarData]);
+
+  // Align each week column into strict 7 weekday slots (Sunday=0 to Saturday=6)
+  const normalizedWeeks = useMemo(() => {
+    if (!calendarData?.weeks?.length) return [];
+
+    return calendarData.weeks.map((week) => {
+      const slots: Array<RawContributionDay | null> = Array(7).fill(null);
+      week.contributionDays.forEach((day) => {
+        const weekdayIndex =
+          day.weekday !== undefined
+            ? day.weekday
+            : new Date(day.date).getDay();
+        if (weekdayIndex >= 0 && weekdayIndex < 7) {
+          slots[weekdayIndex] = day;
+        }
+      });
+      return slots;
+    });
+  }, [calendarData]);
 
   const formatDate = (dateStr: string) => {
     if (!dateStr) return "";
@@ -194,9 +173,11 @@ export function GitHubContributionGraph() {
     }
   };
 
+  const totalContributions = calendarData?.totalContributions ?? null;
+
   return (
     <div className="w-full max-w-2xl font-mono flex flex-col justify-center select-none py-2">
-      {/* Header Row: Terminal Label + Sync Status (Larger, Borderless) */}
+      {/* Header Row: Terminal Label + Official Sync Status */}
       <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[var(--border)]">
         <div className="flex items-center gap-2.5">
           <span className="text-xs sm:text-sm md:text-base font-semibold tracking-wider uppercase text-[var(--text-primary)]">
@@ -214,7 +195,7 @@ export function GitHubContributionGraph() {
         </div>
       </div>
 
-      {/* Prominent Contribution Count Headline (Scaled Up) */}
+      {/* Prominent Contribution Count Headline */}
       <div className="mb-4 sm:mb-5">
         {loading ? (
           <div className="h-10 sm:h-12 w-56 bg-[var(--border)] rounded animate-pulse" />
@@ -225,7 +206,9 @@ export function GitHubContributionGraph() {
         ) : (
           <div className="flex items-baseline gap-3 flex-wrap">
             <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] leading-none">
-              {totalCount !== null ? totalCount.toLocaleString() : "--"}
+              {totalContributions !== null
+                ? totalContributions.toLocaleString()
+                : "--"}
             </span>
             <span className="font-sans text-sm sm:text-base md:text-lg text-[var(--text-muted)] font-normal">
               contributions in the last year
@@ -234,7 +217,7 @@ export function GitHubContributionGraph() {
         )}
       </div>
 
-      {/* Heatmap Grid Section (Scaled Up Cell Sizes) */}
+      {/* Heatmap Grid Section */}
       <div className="w-full relative overflow-x-auto pb-2 scrollbar-none">
         {loading ? (
           <div className="h-32 sm:h-36 w-full bg-[var(--border)]/30 rounded-lg animate-pulse" />
@@ -244,14 +227,16 @@ export function GitHubContributionGraph() {
           </div>
         ) : (
           <div className="min-w-[560px] select-none">
-            {/* Month labels row */}
-            <div className="relative h-5 mb-1.5 text-[10px] sm:text-xs text-[var(--text-muted)] font-mono">
+            {/* Month labels row — offset to account for day-label column */}
+            <div className="relative h-5 mb-1.5 text-[10px] sm:text-xs text-[var(--text-muted)] font-mono pl-8">
               {monthLabels.map((lbl, idx) => (
                 <span
                   key={idx}
                   className="absolute"
                   style={{
-                    left: `${(lbl.colIndex / weeks.length) * 100}%`,
+                    left: `calc(2rem + ${
+                      (lbl.colIndex / normalizedWeeks.length) * 100
+                    }% * (1 - 2rem / 100%))`,
                   }}
                 >
                   {lbl.text}
@@ -259,22 +244,44 @@ export function GitHubContributionGraph() {
               ))}
             </div>
 
-            {/* Day Cells Grid (Columns of Weeks, 7 days per column, ~10-14px cells) */}
-            <div className="flex gap-[3px] sm:gap-[4px] items-center">
-              {weeks.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-[3px] sm:gap-[4px]">
-                  {week.map((day, dIdx) => {
-                    if (!day.date) {
+            {/* Day Cells Grid (53 Week Columns, 7 Weekday Rows Sunday-Saturday) */}
+            <div className="flex gap-[3px] sm:gap-[4px] items-start">
+              {/* Day-of-week labels column (Sun=0..Sat=6, show Mon/Wed/Fri like GitHub) */}
+              <div className="flex flex-col gap-[3px] sm:gap-[4px] mr-1 shrink-0">
+                {["", "Mon", "", "Wed", "", "Fri", ""].map((label, i) => (
+                  <div
+                    key={i}
+                    className="h-[9px] sm:h-[11px] md:h-[12px] flex items-center"
+                  >
+                    <span className="text-[9px] sm:text-[10px] text-[var(--text-muted)] font-mono leading-none">
+                      {label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Week columns */}
+              {normalizedWeeks.map((weekSlots, wIdx) => (
+                <div
+                  key={wIdx}
+                  className="flex flex-col gap-[3px] sm:gap-[4px]"
+                >
+                  {weekSlots.map((day, dIdx) => {
+                    if (!day) {
                       return (
                         <div
                           key={dIdx}
-                          className="w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] opacity-0"
+                          className="w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] opacity-0 pointer-events-none"
                         />
                       );
                     }
 
-                    const isHovered = hoveredDay?.day.date === day.date;
-                    const colorClass = LEVEL_COLORS[day.level] || LEVEL_COLORS[0];
+                    const numericLevel = getNumericLevel(
+                      day.contributionLevel,
+                      day.contributionCount
+                    );
+                    const colorClass = LEVEL_COLORS[numericLevel];
+                    const isHovered = hoveredDay?.date === day.date;
 
                     return (
                       <div
@@ -282,14 +289,30 @@ export function GitHubContributionGraph() {
                         onMouseEnter={(e) => {
                           const rect = e.currentTarget.getBoundingClientRect();
                           setHoveredDay({
-                            day,
+                            date: day.date,
+                            count: day.contributionCount,
                             x: rect.left + rect.width / 2,
                             y: rect.top,
                           });
                         }}
                         onMouseLeave={() => setHoveredDay(null)}
-                        className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2.5px] border ${colorClass} transition-transform duration-150 cursor-pointer ${
-                          isHovered ? "scale-150 z-20 ring-1.5 ring-[var(--accent)]" : ""
+                        onClick={(e) => {
+                          const rect = e.currentTarget.getBoundingClientRect();
+                          setHoveredDay((prev) =>
+                            prev?.date === day.date
+                              ? null
+                              : {
+                                  date: day.date,
+                                  count: day.contributionCount,
+                                  x: rect.left + rect.width / 2,
+                                  y: rect.top,
+                                }
+                          );
+                        }}
+                        className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2.5px] border ${colorClass} transition-transform duration-150 cursor-pointer ${numericLevel === 0 ? "opacity-40" : ""} ${
+                          isHovered
+                            ? "scale-150 z-20 ring-1.5 ring-[var(--accent)]"
+                            : ""
                         }`}
                       />
                     );
@@ -302,7 +325,7 @@ export function GitHubContributionGraph() {
       </div>
 
       {/* Floating Hover Tooltip */}
-      {hoveredDay && hoveredDay.day.date && (
+      {hoveredDay && (
         <motion.div
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
@@ -314,17 +337,17 @@ export function GitHubContributionGraph() {
           }}
         >
           <span className="font-semibold">
-            {hoveredDay.day.count === 0
+            {hoveredDay.count === 0
               ? "No contributions"
-              : `${hoveredDay.day.count} contribution${
-                  hoveredDay.day.count > 1 ? "s" : ""
+              : `${hoveredDay.count} contribution${
+                  hoveredDay.count > 1 ? "s" : ""
                 }`}
           </span>{" "}
-          <span className="opacity-80">on {formatDate(hoveredDay.day.date)}</span>
+          <span className="opacity-80">on {formatDate(hoveredDay.date)}</span>
         </motion.div>
       )}
 
-      {/* Footer: User profile handle & Theme-matched Intensity Legend (Scaled Up) */}
+      {/* Footer: User profile handle & Theme-matched Intensity Legend */}
       <div className="mt-4 sm:mt-5 pt-3.5 border-t border-[var(--border)] flex items-center justify-between text-xs sm:text-sm text-[var(--text-muted)]">
         <a
           href="https://github.com/harshkumar1306"
@@ -343,7 +366,7 @@ export function GitHubContributionGraph() {
             {([0, 1, 2, 3, 4] as const).map((level) => (
               <span
                 key={level}
-                className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2px] border ${LEVEL_COLORS[level]}`}
+                className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2px] border ${LEVEL_COLORS[level]} ${level === 0 ? "opacity-40" : ""}`}
               />
             ))}
           </div>

@@ -84,7 +84,7 @@ export function About() {
               // 02. Identity &amp; Approach
             </span>
           </div>
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
+          <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
             About
           </h2>
         </div>
@@ -94,11 +94,11 @@ export function About() {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start text-left"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start text-left"
         >
           {/* LEFT COLUMN: Bio Text (~58% width on desktop) */}
-          <div className="lg:col-span-7 flex flex-col gap-5 font-sans text-base sm:text-[17px] text-[var(--text-body)] leading-[1.72]">
+          <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-5 font-sans text-sm xs:text-base sm:text-[17px] text-[var(--text-body)] leading-[1.72]">
             <motion.p variants={itemVariants}>
               I design systems before I build them &mdash; architecture,
               trade-offs, and interfaces first, implementation second. That
@@ -126,7 +126,7 @@ export function About() {
             variants={itemVariants}
             className="lg:col-span-5 w-full flex flex-col mt-2 lg:mt-0"
           >
-            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-panel)] p-6 sm:p-7 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-panel)] p-5 sm:p-7 md:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
               {/* Fact Sheet Header */}
               <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--border)]">
                 <span className="font-mono text-xs font-semibold tracking-wider uppercase text-[var(--text-primary)]">

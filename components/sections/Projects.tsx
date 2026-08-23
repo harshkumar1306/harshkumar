@@ -228,24 +228,24 @@ export function Projects() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       aria-label="Featured Projects Gallery (use left/right arrows to navigate)"
-      className="flex-1 w-full h-full flex flex-col justify-between p-5 sm:p-8 md:p-12 lg:p-14 focus-visible:outline-none"
+      className="w-full flex flex-col justify-center focus-visible:outline-none"
     >
-      <div className="w-full max-w-6xl mx-auto flex flex-col h-full">
+      <div className="w-full max-w-6xl mx-auto flex flex-col">
         {/* Section Header with Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-5 pb-3.5 border-b border-[var(--border)]">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3.5 sm:gap-4 mb-4 sm:mb-5 pb-3 sm:pb-3.5 border-b border-[var(--border)]">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
               <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
                 // 04. Systems &amp; Engineering
               </span>
             </div>
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[var(--text-primary)]">
+            <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-[var(--text-primary)]">
               Featured Projects
             </h2>
           </div>
 
           {/* Navigation Controls & Indicators */}
-          <div className="flex items-center gap-4 self-start sm:self-auto">
+          <div className="flex items-center gap-3 sm:gap-4 self-start sm:self-auto">
             {/* Step Counter */}
             <span className="font-mono text-xs text-[var(--text-muted)] tracking-wider">
               {String(activeIndex + 1).padStart(2, "0")} /{" "}
@@ -276,7 +276,7 @@ export function Projects() {
                 onClick={prevProject}
                 disabled={activeIndex === 0}
                 aria-label="Previous project"
-                className={`p-2.5 rounded-full border border-[var(--border)] bg-[var(--bg-panel)] text-[var(--text-primary)] shadow-sm transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none ${
+                className={`p-2 sm:p-2.5 rounded-full border border-[var(--border)] bg-[var(--bg-panel)] text-[var(--text-primary)] shadow-sm transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none ${
                   activeIndex === 0
                     ? "opacity-30 cursor-not-allowed"
                     : "hover:border-[var(--accent)] hover:bg-[var(--bg-elevated)] active:scale-95 cursor-pointer"
@@ -288,7 +288,7 @@ export function Projects() {
                 onClick={nextProject}
                 disabled={activeIndex === projects.length - 1}
                 aria-label="Next project"
-                className={`p-2.5 rounded-full border border-[var(--border)] bg-[var(--bg-panel)] text-[var(--text-primary)] shadow-sm transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none ${
+                className={`p-2 sm:p-2.5 rounded-full border border-[var(--border)] bg-[var(--bg-panel)] text-[var(--text-primary)] shadow-sm transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none ${
                   activeIndex === projects.length - 1
                     ? "opacity-30 cursor-not-allowed"
                     : "hover:border-[var(--accent)] hover:bg-[var(--bg-elevated)] active:scale-95 cursor-pointer"
@@ -301,9 +301,9 @@ export function Projects() {
         </div>
 
         {/* Horizontal Card Gallery Viewport */}
-        <div className="relative w-full overflow-hidden flex-1 rounded-[24px]">
+        <div className="relative w-full overflow-hidden rounded-[24px]">
           <motion.div
-            className="flex w-full h-full"
+            className="flex w-full"
             animate={{ x: `-${activeIndex * 100}%` }}
             transition={{
               type: "spring",
@@ -314,33 +314,33 @@ export function Projects() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="w-full shrink-0 px-1 sm:px-2 flex flex-col"
+                className="w-full shrink-0 px-0.5 sm:px-1 flex flex-col"
               >
-                <div className="w-full rounded-[24px] border border-[var(--border)] bg-[var(--bg-panel)] p-5 sm:p-7 md:p-8 flex flex-col gap-5 sm:gap-6 overflow-y-auto max-h-[calc(100vh-14rem)] shadow-sm">
+                <div className="w-full rounded-[20px] sm:rounded-[24px] border border-[var(--border)] bg-[var(--bg-panel)] p-4 xs:p-5 sm:p-7 md:p-8 flex flex-col gap-4 sm:gap-6 shadow-sm lg:max-h-[calc(100vh-14rem)] lg:overflow-y-auto">
                   {/* Top Bar: Name, Tagline & CTAs */}
-                  <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4 pb-4 border-b border-[var(--border)]">
+                  <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3.5 sm:gap-4 pb-3.5 sm:pb-4 border-b border-[var(--border)]">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1.5">
+                      <div className="flex items-center gap-2 mb-1">
                         <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                           {project.category}
                         </span>
                       </div>
-                      <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)]">
+                      <h3 className="font-heading text-2xl xs:text-3xl md:text-4xl font-bold text-[var(--text-primary)]">
                         {project.name}
                       </h3>
-                      <p className="font-sans text-sm sm:text-base text-[var(--text-body)] mt-2 leading-relaxed max-w-3xl">
+                      <p className="font-sans text-xs xs:text-sm sm:text-base text-[var(--text-body)] mt-2 leading-relaxed max-w-3xl">
                         {project.tagline}
                       </p>
                     </div>
 
                     {/* Action Links */}
-                    <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 shrink-0 self-start">
                       {project.links.live && (
                         <a
                           href={project.links.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors shadow-sm"
+                          className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors shadow-sm"
                         >
                           <span>View Live Demo</span>
                           <FiExternalLink className="w-3.5 h-3.5" />
@@ -351,7 +351,7 @@ export function Projects() {
                           href={project.links.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs sm:text-sm font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors"
+                          className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs sm:text-sm font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors"
                         >
                           <FiGithub className="w-3.5 h-3.5" />
                           <span>View on GitHub</span>

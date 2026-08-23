@@ -46,26 +46,26 @@ export function Contact() {
   };
 
   return (
-    <div className="w-full h-full min-h-[calc(100vh-4rem)] flex flex-col justify-between py-2 sm:py-4">
+    <div className="w-full flex flex-col justify-between py-2 sm:py-4">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.15 }}
         className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between gap-4 sm:gap-6"
       >
         {/* TOP ROW: Utilities & Socials */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 pb-3 sm:pb-4 border-b border-[var(--border)]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 sm:gap-4 pb-3.5 sm:pb-4 border-b border-[var(--border)]">
           {/* Top-Left: Resume Download & Email Copy */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center gap-2 sm:gap-3"
+            className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto"
           >
             {/* Resume Direct Download Button */}
             <a
               href="/resume.pdf"
               download="Harsh_Kumar_Resume.pdf"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium tracking-wide shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-1.5 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium tracking-wide shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all active:scale-95 cursor-pointer"
               title="Download Resume PDF"
             >
               <FiDownload className="w-3.5 h-3.5" />
@@ -73,14 +73,14 @@ export function Contact() {
             </a>
 
             {/* Email Address with Copy Button */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-xs sm:text-sm font-mono text-[var(--text-body)]">
-              <span className="truncate max-w-[190px] xs:max-w-none">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-xs sm:text-sm font-mono text-[var(--text-body)] max-w-full">
+              <span className="truncate max-w-[160px] xs:max-w-[210px] sm:max-w-none">
                 {emailAddress}
               </span>
               <button
                 onClick={handleCopyEmail}
                 aria-label="Copy email address to clipboard"
-                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[var(--bg-panel)] border border-[var(--border)] text-[11px] font-mono font-medium text-[var(--text-primary)] hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all active:scale-95 cursor-pointer shrink-0"
+                className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-0.5 rounded-full bg-[var(--bg-panel)] border border-[var(--border)] text-[10px] sm:text-[11px] font-mono font-medium text-[var(--text-primary)] hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all active:scale-95 cursor-pointer shrink-0"
               >
                 {copied ? (
                   <>
@@ -102,14 +102,14 @@ export function Contact() {
           {/* Top-Right: Social Outlinks */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-2.5 self-start sm:self-auto"
+            className="flex items-center gap-2 sm:gap-2.5 self-start md:self-auto"
           >
             <a
               href="https://github.com/harshkumar1306"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub Profile (opens in a new tab)"
-              className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#181717] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#181717] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
             >
               <SiGithub className="w-4 h-4" />
             </a>
@@ -119,7 +119,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn Profile (opens in a new tab)"
-              className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#0A66C2] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#0A66C2] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
             >
               <FaLinkedinIn className="w-4 h-4" />
             </a>
@@ -129,7 +129,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X Profile (opens in a new tab)"
-              className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#181717] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#181717] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
             >
               <SiX className="w-3.5 h-3.5" />
             </a>
@@ -139,7 +139,7 @@ export function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Chat on WhatsApp (opens in a new tab)"
-              className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#25D366] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#25D366] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
             >
               <SiWhatsapp className="w-4 h-4" />
             </a>
@@ -161,7 +161,7 @@ export function Contact() {
           {/* Bookend Display Headline */}
           <motion.h2
             variants={itemVariants}
-            className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-[var(--text-primary)] uppercase leading-[0.98] max-w-3xl"
+            className="font-display text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-[var(--text-primary)] uppercase leading-[0.98] max-w-3xl"
           >
             Let&apos;s build something.
           </motion.h2>
@@ -169,7 +169,7 @@ export function Contact() {
           {/* Tagline Statement */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-sm sm:text-base md:text-lg text-[var(--text-body)] mt-3 sm:mt-4 max-w-lg font-normal leading-relaxed"
+            className="font-sans text-xs xs:text-sm sm:text-base md:text-lg text-[var(--text-body)] mt-3 sm:mt-4 max-w-lg font-normal leading-relaxed"
           >
             Open to full-stack and AI engineering roles.
           </motion.p>
@@ -182,7 +182,7 @@ export function Contact() {
             {/* Primary Email Button */}
             <a
               href="mailto:3000harshkumar@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--accent)] text-white text-sm sm:text-base font-medium shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-[var(--accent)] text-white text-xs xs:text-sm sm:text-base font-medium shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
             >
               <FiMail className="w-4 h-4" />
               <span>Email Me</span>
@@ -193,7 +193,7 @@ export function Contact() {
               href="https://wa.me/917248132705"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-sm sm:text-base font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs xs:text-sm sm:text-base font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
             >
               <SiWhatsapp className="w-4 h-4 text-[#25D366]" />
               <span>WhatsApp</span>

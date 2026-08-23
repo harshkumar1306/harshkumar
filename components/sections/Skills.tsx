@@ -142,7 +142,7 @@ export function Skills() {
   };
 
   return (
-    <div className="flex-1 w-full h-full min-h-[calc(100vh-5rem)] flex flex-col justify-center p-5 sm:p-8 md:p-12 lg:p-14">
+    <div className="w-full flex flex-col justify-center">
       <div className="w-full max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="mb-6 md:mb-8 text-left">
@@ -151,7 +151,7 @@ export function Skills() {
               // 03. Tooling &amp; Capabilities
             </span>
           </div>
-          <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
+          <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
             Skills &amp; Tools
           </h2>
         </div>
