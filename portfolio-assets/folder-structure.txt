@@ -1,0 +1,26 @@
+portfolio-assets/
+│
+├── 00-project-brief/
+│   ├── brief.md
+│   ├── content-tone.md
+│   └── color-and-theme.md
+│
+├── 01-identity/
+│   ├── bio-short.md
+│   ├── bio-long.md
+│   └── skills-tools.md
+│
+├── 02-code-systems/
+│   └── (project-name)/
+│       ├── description.md
+│       ├── links.md
+│       ├── cover.png
+│       └── screenshots/
+│
+├── 05-contact/
+│   └── contact-info.md
+│
+└── shared-assets/
+    ├── icons/
+    ├── fonts/
+    └── resume.pdf

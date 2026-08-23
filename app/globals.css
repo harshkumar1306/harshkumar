@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #FAFAF8;
+  --bg-panel: #FFFFFF;
+  --bg-elevated: #F2F1ED;
+  --bg-cream: #EDEBE6;
+  --text-primary: #16171A;
+  --text-body: #4B4D52;
+  --text-muted: #8A8D93;
+  --border: #E4E3DE;
+  --accent: #16171A;       /* near-black, matches the reference's black-pill-button style */
+  --accent-hover: #34363B;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
