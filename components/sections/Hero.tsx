@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiArrowDown } from "react-icons/fi";
-import { GitHubActivityFeed } from "@/components/ui/GitHubActivityFeed";
+import { GitHubContributionGraph } from "@/components/ui/GitHubContributionGraph";
 
 export function Hero() {
   const handleScrollToProjects = (e: React.MouseEvent) => {
@@ -92,14 +92,14 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT COLUMN: Live GitHub Activity Terminal Feed */}
+        {/* RIGHT COLUMN: Real GitHub Contribution Calendar Heatmap */}
         <motion.div
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
           className="lg:col-span-5 flex flex-col items-center justify-center mt-4 lg:mt-0 w-full"
         >
-          <GitHubActivityFeed />
+          <GitHubContributionGraph />
         </motion.div>
       </div>
     </div>

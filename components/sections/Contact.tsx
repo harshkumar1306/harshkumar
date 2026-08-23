@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiDownload, FiCopy, FiCheck, FiMail } from "react-icons/fi";
-import { SiGithub, SiWhatsapp } from "react-icons/si";
+import { SiGithub, SiWhatsapp, SiX } from "react-icons/si";
 import { FaLinkedinIn } from "react-icons/fa";
 
 export function Contact() {
@@ -122,6 +122,16 @@ export function Contact() {
               className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#0A66C2] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
             >
               <FaLinkedinIn className="w-4 h-4" />
+            </a>
+
+            <a
+              href="https://x.com/Hardin1306"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X Profile (opens in a new tab)"
+              className="w-9 h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#181717] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
+            >
+              <SiX className="w-3.5 h-3.5" />
             </a>
 
             <a
