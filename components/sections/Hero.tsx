@@ -39,13 +39,13 @@ export function Hero() {
 
   return (
     <div className="flex-1 w-full h-full flex flex-col justify-center py-2 sm:py-4">
-      <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-        {/* LEFT COLUMN: Editorial Typography & CTA */}
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+        {/* LEFT COLUMN: Editorial Typography & CTA (50% Width) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="lg:col-span-7 flex flex-col items-start text-left"
+          className="lg:col-span-6 flex flex-col items-start text-left"
         >
           {/* Eyebrow Label (Retro-Magazine Kicker) */}
           <motion.div
@@ -92,12 +92,12 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT COLUMN: Real GitHub Contribution Calendar Heatmap */}
+        {/* RIGHT COLUMN: Large Borderless GitHub Contribution Heatmap (50% Width) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
-          className="lg:col-span-5 flex flex-col items-center justify-center mt-4 lg:mt-0 w-full"
+          transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
+          className="lg:col-span-6 flex flex-col items-start lg:items-end justify-center w-full"
         >
           <GitHubContributionGraph />
         </motion.div>

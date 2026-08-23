@@ -80,7 +80,7 @@ export function GitHubContributionGraph() {
 
       const json: ApiResponse = await res.json();
       if (Array.isArray(json.contributions) && json.contributions.length > 0) {
-        // Take the last 365 or 371 days
+        // Take the last 365 days
         const lastDays =
           json.contributions.length > 365
             ? json.contributions.slice(-365)
@@ -195,18 +195,18 @@ export function GitHubContributionGraph() {
   };
 
   return (
-    <div className="relative w-full max-w-[480px] rounded-2xl bg-[var(--bg-elevated)] border border-[var(--border)] p-4 sm:p-5 md:p-6 shadow-[0_4px_24px_rgba(0,0,0,0.03)] font-mono flex flex-col justify-between transition-all duration-200">
-      {/* Header Row: Terminal Label + Sync Status */}
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-[var(--border)]">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold tracking-wider uppercase text-[var(--text-primary)]">
+    <div className="w-full max-w-2xl font-mono flex flex-col justify-center select-none py-2">
+      {/* Header Row: Terminal Label + Sync Status (Larger, Borderless) */}
+      <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[var(--border)]">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs sm:text-sm md:text-base font-semibold tracking-wider uppercase text-[var(--text-primary)]">
             // github.contributions
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 text-[11px] text-[var(--text-muted)]">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-[var(--text-muted)]">
           <span
-            className={`w-2 h-2 rounded-full ${
+            className={`w-2.5 h-2.5 rounded-full ${
               hasError ? "bg-amber-500" : "bg-emerald-500 animate-pulse"
             }`}
           />
@@ -214,38 +214,38 @@ export function GitHubContributionGraph() {
         </div>
       </div>
 
-      {/* Prominent Contribution Count Headline */}
-      <div className="mb-4">
+      {/* Prominent Contribution Count Headline (Scaled Up) */}
+      <div className="mb-4 sm:mb-5">
         {loading ? (
-          <div className="h-8 w-44 bg-[var(--border)] rounded animate-pulse" />
+          <div className="h-10 sm:h-12 w-56 bg-[var(--border)] rounded animate-pulse" />
         ) : hasError ? (
-          <div className="text-xs text-[var(--text-muted)] italic">
+          <div className="text-sm text-[var(--text-muted)] italic">
             // unable to sync contribution data
           </div>
         ) : (
-          <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="font-heading text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <span className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)] leading-none">
               {totalCount !== null ? totalCount.toLocaleString() : "--"}
             </span>
-            <span className="font-sans text-xs sm:text-sm text-[var(--text-muted)] font-normal">
+            <span className="font-sans text-sm sm:text-base md:text-lg text-[var(--text-muted)] font-normal">
               contributions in the last year
             </span>
           </div>
         )}
       </div>
 
-      {/* Heatmap Grid Section */}
-      <div className="w-full relative overflow-x-auto pb-1 scrollbar-none">
+      {/* Heatmap Grid Section (Scaled Up Cell Sizes) */}
+      <div className="w-full relative overflow-x-auto pb-2 scrollbar-none">
         {loading ? (
-          <div className="h-28 w-full bg-[var(--border)]/30 rounded-lg animate-pulse" />
+          <div className="h-32 sm:h-36 w-full bg-[var(--border)]/30 rounded-lg animate-pulse" />
         ) : hasError ? (
-          <div className="h-28 flex items-center justify-center text-xs text-[var(--text-muted)] border border-dashed border-[var(--border)] rounded-lg">
+          <div className="h-32 flex items-center justify-center text-sm text-[var(--text-muted)] border border-dashed border-[var(--border)] rounded-lg">
             Contribution graph currently unavailable
           </div>
         ) : (
-          <div className="min-w-[420px] select-none">
+          <div className="min-w-[560px] select-none">
             {/* Month labels row */}
-            <div className="relative h-4 mb-1 text-[9px] text-[var(--text-muted)] font-mono">
+            <div className="relative h-5 mb-1.5 text-[10px] sm:text-xs text-[var(--text-muted)] font-mono">
               {monthLabels.map((lbl, idx) => (
                 <span
                   key={idx}
@@ -259,16 +259,16 @@ export function GitHubContributionGraph() {
               ))}
             </div>
 
-            {/* Day Cells Grid (Columns of Weeks, 7 days per column) */}
-            <div className="flex gap-[3px] items-center">
+            {/* Day Cells Grid (Columns of Weeks, 7 days per column, ~10-14px cells) */}
+            <div className="flex gap-[3px] sm:gap-[4px] items-center">
               {weeks.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-[3px]">
+                <div key={wIdx} className="flex flex-col gap-[3px] sm:gap-[4px]">
                   {week.map((day, dIdx) => {
                     if (!day.date) {
                       return (
                         <div
                           key={dIdx}
-                          className="w-[7px] h-[7px] sm:w-[8px] sm:h-[8px] opacity-0"
+                          className="w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] opacity-0"
                         />
                       );
                     }
@@ -288,8 +288,8 @@ export function GitHubContributionGraph() {
                           });
                         }}
                         onMouseLeave={() => setHoveredDay(null)}
-                        className={`w-[7px] h-[7px] sm:w-[8px] sm:h-[8px] rounded-[2px] border ${colorClass} transition-transform duration-150 cursor-pointer ${
-                          isHovered ? "scale-150 z-20 ring-1 ring-[var(--accent)]" : ""
+                        className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2.5px] border ${colorClass} transition-transform duration-150 cursor-pointer ${
+                          isHovered ? "scale-150 z-20 ring-1.5 ring-[var(--accent)]" : ""
                         }`}
                       />
                     );
@@ -307,7 +307,7 @@ export function GitHubContributionGraph() {
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
-          className="fixed z-50 pointer-events-none -translate-x-1/2 -translate-y-full -mt-2.5 px-2.5 py-1 rounded-md bg-[var(--text-primary)] text-[var(--bg-primary)] text-[10px] font-mono shadow-md whitespace-nowrap"
+          className="fixed z-50 pointer-events-none -translate-x-1/2 -translate-y-full -mt-3 px-3 py-1.5 rounded-lg bg-[var(--text-primary)] text-[var(--bg-primary)] text-xs font-mono shadow-lg whitespace-nowrap"
           style={{
             left: hoveredDay.x,
             top: hoveredDay.y,
@@ -324,26 +324,26 @@ export function GitHubContributionGraph() {
         </motion.div>
       )}
 
-      {/* Footer: User profile handle & Theme-matched Intensity Legend */}
-      <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between text-[11px] text-[var(--text-muted)]">
+      {/* Footer: User profile handle & Theme-matched Intensity Legend (Scaled Up) */}
+      <div className="mt-4 sm:mt-5 pt-3.5 border-t border-[var(--border)] flex items-center justify-between text-xs sm:text-sm text-[var(--text-muted)]">
         <a
           href="https://github.com/harshkumar1306"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-[var(--text-primary)] hover:underline flex items-center gap-1 font-mono"
+          className="hover:text-[var(--text-primary)] hover:underline flex items-center gap-1.5 font-mono"
         >
           <span>@harshkumar1306</span>
           <span>&rarr;</span>
         </a>
 
         {/* Intensity Legend */}
-        <div className="flex items-center gap-1.5 text-[10px]">
+        <div className="flex items-center gap-2 text-xs">
           <span>Less</span>
-          <div className="flex items-center gap-[2.5px]">
+          <div className="flex items-center gap-1">
             {([0, 1, 2, 3, 4] as const).map((level) => (
               <span
                 key={level}
-                className={`w-[7px] h-[7px] sm:w-[8px] sm:h-[8px] rounded-[1.5px] border ${LEVEL_COLORS[level]}`}
+                className={`w-[9px] h-[9px] sm:w-[11px] sm:h-[11px] md:w-[12px] md:h-[12px] rounded-[2px] border ${LEVEL_COLORS[level]}`}
               />
             ))}
           </div>
