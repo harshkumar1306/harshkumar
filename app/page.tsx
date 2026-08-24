@@ -1,3 +1,4 @@
+import { FloatingNav } from "@/components/ui/FloatingNav";
 import { SectionPanel } from "@/components/ui/SectionPanel";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -8,6 +9,7 @@ import { Contact } from "@/components/sections/Contact";
 export default function Home() {
   return (
     <main className="relative w-full overflow-x-hidden bg-[var(--bg-primary)]">
+      <FloatingNav />
       {/* 1. Hero (Intro) - Light (#FAFAF8) with isBookended="start" so About Me (cream) is visible by ~1cm at the bottom on initial load */}
       <SectionPanel
         id="hero"

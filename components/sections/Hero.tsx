@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiArrowDown } from "react-icons/fi";
-import { GitHubContributionGraph } from "@/components/ui/GitHubContributionGraph";
+import { HeroLottie } from "@/components/ui/HeroLottie";
 
 export function Hero() {
   const handleScrollToProjects = (e: React.MouseEvent) => {
@@ -92,14 +92,14 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT COLUMN: Large Borderless GitHub Contribution Heatmap (50% Width) */}
+        {/* RIGHT COLUMN: Blogging Black & White Lottie Animation (50% Width) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.35, ease: "easeOut" }}
-          className="lg:col-span-6 flex flex-col items-start lg:items-end justify-center w-full"
+          transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-6 flex items-center justify-center lg:justify-end w-full"
         >
-          <GitHubContributionGraph />
+          <HeroLottie />
         </motion.div>
       </div>
     </div>
