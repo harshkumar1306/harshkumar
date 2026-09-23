@@ -38,6 +38,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Harsh Kumar | Full-Stack Software Engineer",
   description: "Personal portfolio of Harsh Kumar, a full-stack software engineer working across frontend, backend, systems integration, and applied AI/LLM engineering.",
+  icons: {
+    icon: "/assets/guitar-icon.png?v=2",
+    shortcut: "/assets/guitar-icon.png?v=2",
+    apple: "/assets/guitar-icon.png?v=2",
+  },
 };
 
 export default function RootLayout({
