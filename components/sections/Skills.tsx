@@ -142,9 +142,9 @@ export function Skills() {
     <div className="w-full flex flex-col justify-center">
       <div className="w-full max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="mb-6 md:mb-8 text-left">
-          <div className="flex items-center gap-2 mb-2.5">
-            <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
+        <div className="mb-4 sm:mb-6 md:mb-8 text-left">
+          <div className="flex items-center gap-2 mb-2 sm:mb-2.5">
+            <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.2em] sm:tracking-[0.22em] uppercase text-[var(--text-muted)]">
               // Tooling &amp; Capabilities
             </span>
           </div>
@@ -159,7 +159,7 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 sm:gap-y-7 text-left"
+          className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 gap-y-4 sm:gap-y-6 md:gap-y-7 text-left"
         >
           {skillCategories.map((cat, idx) => (
             <motion.div
@@ -168,13 +168,13 @@ export function Skills() {
               className="flex flex-col items-start"
             >
               {/* Category Label */}
-              <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-[var(--text-muted)] mb-2 sm:mb-2.5">
+              <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-[var(--text-muted)] mb-1.5 sm:mb-2.5">
                 {cat.title}
               </span>
 
               {/* Items flex wrap */}
               <motion.div
-                className="flex flex-wrap items-center gap-2 sm:gap-2.5"
+                className="flex flex-wrap items-center gap-1.5 xs:gap-2 sm:gap-2.5"
                 variants={{
                   visible: {
                     transition: {

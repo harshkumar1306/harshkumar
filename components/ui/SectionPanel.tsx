@@ -50,12 +50,12 @@ export function SectionPanel({
   let roundedClasses = "";
   if (roundedEdge === "top") {
     roundedClasses =
-      "rounded-t-[40px] xs:rounded-t-[48px] sm:rounded-t-[64px] md:rounded-t-[80px] lg:rounded-t-[88px] rounded-b-none";
+      "rounded-t-[32px] xs:rounded-t-[44px] sm:rounded-t-[64px] md:rounded-t-[80px] lg:rounded-t-[88px] rounded-b-none";
   } else if (roundedEdge === "none") {
     roundedClasses = "rounded-none";
   } else {
     roundedClasses =
-      "rounded-b-[40px] xs:rounded-b-[48px] sm:rounded-b-[64px] md:rounded-b-[80px] lg:rounded-b-[88px] rounded-t-none";
+      "rounded-b-[32px] xs:rounded-b-[44px] sm:rounded-b-[64px] md:rounded-b-[80px] lg:rounded-b-[88px] rounded-t-none";
   }
 
   // Bookended sections (Hero at start, Contact at end) are calc(100vh - 42px) on desktop
@@ -73,10 +73,10 @@ export function SectionPanel({
     >
       <section
         id={id}
-        className={`relative z-10 w-full flex-1 min-h-0 flex flex-col justify-center transition-colors duration-200 overflow-hidden ${roundedClasses} ${panelBg} ${className}`}
+        className={`relative z-10 w-full flex-1 min-h-0 flex flex-col justify-center transition-colors duration-200 overflow-hidden scroll-mt-14 sm:scroll-mt-16 ${roundedClasses} ${panelBg} ${className}`}
       >
         {/* Content-safe inner wrapper with fluid horizontal & vertical padding */}
-        <div className="w-full flex-1 flex flex-col justify-center px-4 xs:px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 max-w-[1440px] mx-auto py-8 sm:py-10 md:py-12">
+        <div className="w-full flex-1 flex flex-col justify-center px-3.5 xs:px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 max-w-[1440px] mx-auto pt-16 pb-8 xs:pt-20 xs:pb-10 sm:py-10 md:py-12">
           {children}
         </div>
       </section>

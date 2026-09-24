@@ -50,10 +50,10 @@ export function Hero() {
           {/* Eyebrow Label (Retro-Magazine Kicker) */}
           <motion.div
             variants={itemVariants}
-            className="flex items-center gap-2 mb-3 sm:mb-4"
+            className="flex items-center gap-2 mb-2.5 sm:mb-4"
           >
             <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-            <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
+            <span className="font-mono text-[11px] xs:text-xs sm:text-sm font-semibold tracking-[0.18em] xs:tracking-[0.22em] uppercase text-[var(--text-muted)]">
               Full-Stack Engineer
             </span>
           </motion.div>
@@ -61,7 +61,7 @@ export function Hero() {
           {/* Display Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[var(--text-primary)] leading-[0.94] uppercase select-none"
+            className="font-display text-[34px] xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[var(--text-primary)] leading-[0.96] sm:leading-[0.94] uppercase select-none"
           >
             Harsh Kumar
           </motion.h1>
@@ -69,7 +69,7 @@ export function Hero() {
           {/* Subheading / Tagline */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-sm xs:text-base sm:text-lg md:text-xl text-[var(--text-body)] mt-3.5 sm:mt-5 max-w-[500px] leading-relaxed font-normal"
+            className="font-sans text-xs xs:text-sm sm:text-lg md:text-xl text-[var(--text-body)] mt-2.5 sm:mt-5 max-w-[500px] leading-relaxed font-normal"
           >
             Full-stack engineer who designs systems before writing a line of
             code &mdash; architecture, trade-offs, and interfaces first,
@@ -79,12 +79,12 @@ export function Hero() {
           {/* Primary CTA Button */}
           <motion.div
             variants={itemVariants}
-            className="mt-5 sm:mt-7 flex items-center gap-4"
+            className="mt-4 sm:mt-7 flex items-center gap-4"
           >
             <a
               href="#projects"
               onClick={handleScrollToProjects}
-              className="group inline-flex items-center gap-2.5 sm:gap-3 px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-[var(--accent)] text-white text-sm sm:text-base font-medium tracking-wide shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 active:scale-[0.98] cursor-pointer"
+              className="group inline-flex items-center gap-2 sm:gap-3 px-5 py-2.5 sm:px-7 sm:py-3.5 rounded-full bg-[var(--accent)] text-white text-xs xs:text-sm sm:text-base font-medium tracking-wide shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 active:scale-[0.98] cursor-pointer"
             >
               <span>View Projects</span>
               <FiArrowDown className="w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5" />

@@ -12,14 +12,14 @@ export function HeroLottie() {
   }, []);
 
   return (
-    <div className="w-full max-w-[420px] xs:max-w-[480px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[760px] flex items-center justify-center select-none pointer-events-auto">
+    <div className="w-full max-w-[280px] xs:max-w-[340px] sm:max-w-[540px] md:max-w-[620px] lg:max-w-[680px] xl:max-w-[760px] flex items-center justify-center select-none pointer-events-auto">
       {isMounted ? (
         <div className="w-full h-auto flex items-center justify-center">
           <Lottie
             src={animationData}
             loop={true}
             autoplay={true}
-            className="w-full h-auto max-h-[560px] lg:max-h-[620px] object-contain drop-shadow-sm scale-105 sm:scale-110 lg:scale-115 transition-transform duration-300"
+            className="w-full h-auto max-h-[220px] xs:max-h-[280px] sm:max-h-[460px] md:max-h-[560px] lg:max-h-[620px] object-contain drop-shadow-sm scale-100 sm:scale-110 lg:scale-115 transition-transform duration-300"
           />
         </div>
       ) : (

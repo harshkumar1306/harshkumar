@@ -109,11 +109,11 @@ export function TechChip({ techName, url, className = "" }: TechChipProps) {
     <motion.div
       whileHover={{ scale: 1.05, y: -2 }}
       transition={{ type: "spring", stiffness: 400, damping: 20 }}
-      className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-xs font-mono font-medium text-[var(--text-primary)] hover:border-[var(--accent)] hover:shadow-sm transition-colors duration-150 cursor-pointer select-none ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 xs:px-3 xs:py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[11px] xs:text-xs font-mono font-medium text-[var(--text-primary)] hover:border-[var(--accent)] hover:shadow-sm transition-colors duration-150 cursor-pointer select-none ${className}`}
     >
       {brandData && (
         <span
-          className="text-sm sm:text-base flex items-center justify-center shrink-0"
+          className="text-xs xs:text-sm sm:text-base flex items-center justify-center shrink-0"
           style={{ color: brandData.color }}
         >
           {brandData.icon}
@@ -143,7 +143,7 @@ export function TechChip({ techName, url, className = "" }: TechChipProps) {
 export function ConceptTag({ label, className = "" }: { label: string; className?: string }) {
   return (
     <div
-      className={`inline-flex items-center px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg bg-[var(--bg-elevated)] text-xs sm:text-[13px] font-sans font-normal text-[var(--text-body)] select-none ${className}`}
+      className={`inline-flex items-center px-2.5 py-1 xs:px-3 xs:py-1.5 sm:px-3.5 sm:py-1.5 rounded-lg bg-[var(--bg-elevated)] text-[11px] xs:text-xs sm:text-[13px] font-sans font-normal text-[var(--text-body)] select-none break-words ${className}`}
     >
       {label}
     </div>

@@ -191,11 +191,11 @@ export function FloatingNav() {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-3.5 sm:top-5 inset-x-0 z-50 flex justify-center items-center pointer-events-none px-3"
+      className="fixed top-2.5 xs:top-3.5 sm:top-5 inset-x-0 z-50 flex justify-center items-center pointer-events-none px-2 xs:px-3"
     >
       <nav
         aria-label="Main Navigation"
-        className={`pointer-events-auto flex items-center p-1 sm:p-1.5 rounded-full border border-[var(--border)] bg-[#FFFFFF]/85 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.03] transition-all duration-300 ${
+        className={`pointer-events-auto flex items-center p-0.5 xs:p-1 sm:p-1.5 rounded-full border border-[var(--border)] bg-[#FFFFFF]/85 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-black/[0.03] transition-all duration-300 ${
           scrolled
             ? "shadow-[0_12px_36px_rgba(0,0,0,0.09)] bg-[#FFFFFF]/92"
             : ""
@@ -236,7 +236,7 @@ export function FloatingNav() {
                   }}
                   href={`#${item.id}`}
                   onClick={(e) => handleNavClick(e, item.id)}
-                  className={`relative z-10 block px-2.5 py-1.5 xs:px-3 sm:px-4 sm:py-2 rounded-full font-mono text-[11px] xs:text-xs sm:text-sm font-medium tracking-wide uppercase transition-colors duration-200 select-none ${
+                  className={`relative z-10 block px-2 py-1 xs:px-3 xs:py-1.5 sm:px-4 sm:py-2 rounded-full font-mono text-[10.5px] xs:text-xs sm:text-sm font-medium tracking-tight xs:tracking-wide uppercase transition-colors duration-200 select-none ${
                     isActive
                       ? "text-white"
                       : "text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-black/[0.03]"
