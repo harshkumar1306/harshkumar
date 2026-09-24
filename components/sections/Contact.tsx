@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { FiDownload, FiCopy, FiCheck, FiMail } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiDownload, FiCopy, FiCheck, FiMail, FiExternalLink } from "react-icons/fi";
 import { SiGithub, SiWhatsapp, SiX } from "react-icons/si";
 import { FaLinkedinIn } from "react-icons/fa";
 
 export function Contact() {
   const [copied, setCopied] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [showEmailOptions, setShowEmailOptions] = useState(false);
   const emailAddress = "3000harshkumar@gmail.com";
 
   const handleCopyEmail = async () => {
@@ -20,6 +22,35 @@ export function Contact() {
     } catch (err) {
       console.error("Failed to copy email:", err);
     }
+  };
+
+  const handleEmailMe = (e: React.MouseEvent) => {
+    e.preventDefault();
+    // Copy address to clipboard
+    try {
+      navigator.clipboard.writeText(emailAddress);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+    setEmailCopied(true);
+    setShowEmailOptions(true);
+
+    // Attempt mailto via anchor click
+    try {
+      const mailtoUrl = `mailto:${emailAddress}?subject=${encodeURIComponent("Engineering Roles / Website Development")}`;
+      const mailtoAnchor = document.createElement("a");
+      mailtoAnchor.href = mailtoUrl;
+      mailtoAnchor.rel = "noopener noreferrer";
+      document.body.appendChild(mailtoAnchor);
+      mailtoAnchor.click();
+      document.body.removeChild(mailtoAnchor);
+    } catch (err) {
+      console.error("Mailto error:", err);
+    }
+
+    setTimeout(() => {
+      setEmailCopied(false);
+    }, 3500);
   };
 
   const containerVariants = {
@@ -133,16 +164,6 @@ export function Contact() {
             >
               <SiX className="w-3.5 h-3.5" />
             </a>
-
-            <a
-              href="https://wa.me/917248132705"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Chat on WhatsApp (opens in a new tab)"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] flex items-center justify-center text-[#25D366] hover:border-[var(--accent)] hover:scale-110 focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-200 shadow-sm"
-            >
-              <SiWhatsapp className="w-4 h-4" />
-            </a>
           </motion.div>
         </div>
 
@@ -154,7 +175,7 @@ export function Contact() {
             className="flex items-center gap-2 mb-2 sm:mb-3"
           >
             <span className="font-mono text-xs font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
-              // 05. Get In Touch
+              // Get In Touch
             </span>
           </motion.div>
 
@@ -171,33 +192,72 @@ export function Contact() {
             variants={itemVariants}
             className="font-sans text-xs xs:text-sm sm:text-base md:text-lg text-[var(--text-body)] mt-3 sm:mt-4 max-w-lg font-normal leading-relaxed"
           >
-            Open to full-stack and AI engineering roles.
+            Open to engineering roles and website development.
           </motion.p>
 
           {/* Centered CTA Button Pairing */}
           <motion.div
             variants={itemVariants}
-            className="mt-5 sm:mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+            className="mt-5 sm:mt-7 flex flex-col items-center"
           >
-            {/* Primary Email Button */}
-            <a
-              href="mailto:3000harshkumar@gmail.com"
-              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-[var(--accent)] text-white text-xs xs:text-sm sm:text-base font-medium shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
-            >
-              <FiMail className="w-4 h-4" />
-              <span>Email Me</span>
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {/* Primary Email Button */}
+              <button
+                type="button"
+                onClick={handleEmailMe}
+                className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-[var(--accent)] text-white text-xs xs:text-sm sm:text-base font-medium shadow-sm hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
+                title="Send email or copy address"
+              >
+                {emailCopied ? (
+                  <>
+                    <FiCheck className="w-4 h-4 text-white" />
+                    <span>Email Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <FiMail className="w-4 h-4" />
+                    <span>Email Me</span>
+                  </>
+                )}
+              </button>
 
-            {/* Secondary WhatsApp Button */}
-            <a
-              href="https://wa.me/917248132705"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs xs:text-sm sm:text-base font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
-            >
-              <SiWhatsapp className="w-4 h-4 text-[#25D366]" />
-              <span>WhatsApp</span>
-            </a>
+              {/* Secondary WhatsApp Button */}
+              <a
+                href="https://wa.me/917248132705"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs xs:text-sm sm:text-base font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-all duration-150 active:scale-95 cursor-pointer"
+              >
+                <SiWhatsapp className="w-4 h-4 text-[#25D366]" />
+                <span>WhatsApp</span>
+              </a>
+            </div>
+
+            {/* Helper Fallback for Webmail users */}
+            <AnimatePresence>
+              {showEmailOptions && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4, scale: 0.96 }}
+                  className="mt-3.5 inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-[var(--bg-panel)] border border-[var(--border)] text-xs font-mono text-[var(--text-body)] shadow-sm"
+                >
+                  <span className="text-emerald-600 font-medium flex items-center gap-1">
+                    <FiCheck className="w-3.5 h-3.5" /> Address copied to clipboard
+                  </span>
+                  <span className="text-[var(--text-muted)] hidden xs:inline">&bull;</span>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}&su=${encodeURIComponent("Engineering Roles / Website Development")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--accent)] hover:underline font-medium inline-flex items-center gap-1"
+                  >
+                    <span>Open in Gmail</span>
+                    <FiExternalLink className="w-3 h-3" />
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
 

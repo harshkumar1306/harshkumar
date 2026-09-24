@@ -24,12 +24,17 @@ import {
   SiSocketdotio,
   SiAnthropic,
   SiGooglecloud,
+  SiCloudflare,
+  SiCursor,
+  SiDeepmind,
 } from "react-icons/si";
+import { FaJava } from "react-icons/fa";
 import { VscVscode } from "react-icons/vsc";
 
 // Default tech URLs
 export const defaultTechUrls: Record<string, string> = {
   Python: "https://python.org",
+  Java: "https://java.com",
   JavaScript: "https://developer.mozilla.org/docs/Web/JavaScript",
   TypeScript: "https://typescriptlang.org",
   SQL: "https://en.wikipedia.org/wiki/SQL",
@@ -44,8 +49,11 @@ export const defaultTechUrls: Record<string, string> = {
   OpenCV: "https://opencv.org",
   Git: "https://git-scm.com",
   GitHub: "https://github.com",
+  Cloudflare: "https://cloudflare.com",
   Vercel: "https://vercel.com",
   "VS Code": "https://code.visualstudio.com",
+  Cursor: "https://cursor.com",
+  Antigravity: "https://deepmind.google",
   Vite: "https://vite.dev",
   Express: "https://expressjs.com",
   PostgreSQL: "https://postgresql.org",
@@ -58,6 +66,7 @@ export const defaultTechUrls: Record<string, string> = {
 // Map tech names to default icons with official brand colors
 const iconMap: Record<string, { icon: React.ReactNode; color: string }> = {
   Python: { icon: <SiPython />, color: "#3776AB" },
+  Java: { icon: <FaJava />, color: "#E76F00" },
   JavaScript: { icon: <SiJavascript />, color: "#F7DF1E" },
   TypeScript: { icon: <SiTypescript />, color: "#3178C6" },
   SQL: { icon: <SiPostgresql />, color: "#4169E1" },
@@ -72,8 +81,11 @@ const iconMap: Record<string, { icon: React.ReactNode; color: string }> = {
   OpenCV: { icon: <SiOpencv />, color: "#5C3EE8" },
   Git: { icon: <SiGit />, color: "#F05032" },
   GitHub: { icon: <SiGithub />, color: "#181717" },
+  Cloudflare: { icon: <SiCloudflare />, color: "#F38020" },
   Vercel: { icon: <SiVercel />, color: "#000000" },
   "VS Code": { icon: <VscVscode />, color: "#007ACC" },
+  Cursor: { icon: <SiCursor />, color: "#181717" },
+  Antigravity: { icon: <SiDeepmind />, color: "#1A73E8" },
   Vite: { icon: <SiVite />, color: "#646CFF" },
   Express: { icon: <SiExpress />, color: "#000000" },
   PostgreSQL: { icon: <SiPostgresql />, color: "#4169E1" },

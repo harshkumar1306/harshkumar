@@ -236,7 +236,7 @@ export function Projects() {
           <div>
             <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
               <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
-                // 04. Systems &amp; Engineering
+                // Systems &amp; Engineering
               </span>
             </div>
             <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl font-bold tracking-tight text-[var(--text-primary)]">

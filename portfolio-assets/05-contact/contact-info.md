@@ -1,6 +1,6 @@
 # Contact
 
-Open to full-stack and AI engineering roles.
+Open to engineering roles and website development.
 
 Email: 3000harshkumar@gmail.com
 GitHub: https://github.com/harshkumar1306

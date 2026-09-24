@@ -15,18 +15,20 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
-    title: "01 // Architecture & Systems Thinking",
-    items: [
-      { type: "concept", name: "System design" },
-      { type: "concept", name: "API design" },
-      { type: "concept", name: "Database schema design" },
-      { type: "concept", name: "Architecture trade-off analysis" },
-    ],
-  },
-  {
-    title: "02 // Languages",
+    title: "// Languages",
     items: [
       { type: "chip", name: "Python", url: "https://python.org" },
+      { type: "chip", name: "Java", url: "https://java.com" },
+      {
+        type: "chip",
+        name: "HTML5",
+        url: "https://developer.mozilla.org/docs/Web/HTML",
+      },
+      {
+        type: "chip",
+        name: "CSS3",
+        url: "https://developer.mozilla.org/docs/Web/CSS",
+      },
       {
         type: "chip",
         name: "JavaScript",
@@ -38,20 +40,10 @@ const skillCategories: SkillCategory[] = [
         url: "https://typescriptlang.org",
       },
       { type: "chip", name: "SQL", url: "https://en.wikipedia.org/wiki/SQL" },
-      {
-        type: "chip",
-        name: "HTML5",
-        url: "https://developer.mozilla.org/docs/Web/HTML",
-      },
-      {
-        type: "chip",
-        name: "CSS3",
-        url: "https://developer.mozilla.org/docs/Web/CSS",
-      },
     ],
   },
   {
-    title: "03 // Frontend",
+    title: "// Frontend",
     items: [
       { type: "chip", name: "React", url: "https://react.dev" },
       { type: "chip", name: "Next.js", url: "https://nextjs.org" },
@@ -59,42 +51,47 @@ const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    title: "04 // Backend",
+    title: "// Backend",
     items: [
+      { type: "chip", name: "Node.js", url: "https://nodejs.org" },
       { type: "chip", name: "FastAPI", url: "https://fastapi.tiangolo.com" },
       { type: "concept", name: "REST API design & development" },
-      { type: "chip", name: "Node.js", url: "https://nodejs.org" },
     ],
   },
   {
-    title: "05 // AI & LLM Integration",
+    title: "// Architecture & Systems Thinking",
     items: [
+      { type: "concept", name: "System design" },
+      { type: "concept", name: "API design" },
+      { type: "concept", name: "Database schema design" },
+      { type: "concept", name: "Architecture trade-off analysis" },
       {
         type: "concept",
-        name: "LLM/AI model integration into production systems",
+        name: "LLM / AI model integration",
       },
-      { type: "chip", name: "OpenCV", url: "https://opencv.org" },
-      { type: "concept", name: "YOLO" },
     ],
   },
   {
-    title: "06 // Design & Fabrication",
+    title: "// Tools & Platforms",
+    items: [
+      { type: "chip", name: "Git", url: "https://git-scm.com" },
+      { type: "chip", name: "GitHub", url: "https://github.com" },
+      { type: "chip", name: "Vercel", url: "https://vercel.com" },
+      { type: "chip", name: "Cloudflare", url: "https://cloudflare.com" },
+      { type: "chip", name: "VS Code", url: "https://code.visualstudio.com" },
+      { type: "chip", name: "Cursor", url: "https://cursor.com" },
+      { type: "chip", name: "Antigravity", url: "https://deepmind.google" },
+    ],
+  },
+  {
+    title: "// Design & Fabrication",
     items: [
       { type: "concept", name: "CAD design" },
       { type: "concept", name: "Hardware prototyping" },
     ],
   },
   {
-    title: "07 // Tools & Platforms",
-    items: [
-      { type: "chip", name: "Git", url: "https://git-scm.com" },
-      { type: "chip", name: "GitHub", url: "https://github.com" },
-      { type: "chip", name: "Vercel", url: "https://vercel.com" },
-      { type: "chip", name: "VS Code", url: "https://code.visualstudio.com" },
-    ],
-  },
-  {
-    title: "08 // Core Foundations",
+    title: "// Core Foundations",
     items: [
       { type: "concept", name: "Data Structures & Algorithms" },
       { type: "concept", name: "Object-Oriented Programming (OOP)" },
@@ -148,7 +145,7 @@ export function Skills() {
         <div className="mb-6 md:mb-8 text-left">
           <div className="flex items-center gap-2 mb-2.5">
             <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
-              // 03. Tooling &amp; Capabilities
+              // Tooling &amp; Capabilities
             </span>
           </div>
           <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">

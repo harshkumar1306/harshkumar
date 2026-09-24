@@ -9,7 +9,6 @@ import {
   FiCpu,
   FiUser,
   FiBriefcase,
-  FiCheckCircle,
 } from "react-icons/fi";
 
 const factSheetItems = [
@@ -41,12 +40,7 @@ const factSheetItems = [
   {
     icon: <FiBriefcase className="w-4 h-4 text-[var(--text-primary)] mt-0.5 shrink-0" />,
     label: "Currently",
-    value: "Open to full-stack & AI engineering roles",
-  },
-  {
-    icon: <FiCheckCircle className="w-4 h-4 text-[var(--text-primary)] mt-0.5 shrink-0" />,
-    label: "Recognition",
-    value: "SIH 2024 Grand Finale selectee",
+    value: "Open to engineering roles and website development",
   },
 ];
 
@@ -81,7 +75,7 @@ export function About() {
         <div className="mb-6 md:mb-8 text-left">
           <div className="flex items-center gap-2 mb-2.5">
             <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase text-[var(--text-muted)]">
-              // 02. Identity &amp; Approach
+              // Identity &amp; Approach
             </span>
           </div>
           <h2 className="font-heading text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text-primary)]">
