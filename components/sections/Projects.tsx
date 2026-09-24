@@ -316,31 +316,31 @@ export function Projects() {
                 key={project.id}
                 className="w-full shrink-0 px-0.5 sm:px-1 flex flex-col"
               >
-                <div className="w-full rounded-[20px] sm:rounded-[24px] border border-[var(--border)] bg-[var(--bg-panel)] p-3.5 xs:p-5 sm:p-7 md:p-8 flex flex-col gap-3.5 sm:gap-6 shadow-sm lg:max-h-[calc(100vh-14rem)] lg:overflow-y-auto">
+                <div className="w-full rounded-[20px] sm:rounded-[24px] border border-[var(--border)] bg-[var(--bg-panel)] p-4 sm:p-7 md:p-8 flex flex-col gap-4 sm:gap-6 shadow-sm lg:max-h-[calc(100vh-14rem)] lg:overflow-y-auto">
                   {/* Top Bar: Name, Tagline & CTAs */}
-                  <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3.5 sm:gap-4 pb-3 sm:pb-4 border-b border-[var(--border)]">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
+                  <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3.5 sm:gap-4 pb-3.5 sm:pb-4 border-b border-[var(--border)]">
+                    <div className="flex-1 w-full lg:w-auto">
+                      <div className="flex items-center gap-2 mb-1 sm:mb-1.5">
                         <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                           {project.category}
                         </span>
                       </div>
-                      <h3 className="font-heading text-2xl xs:text-3xl md:text-4xl font-bold text-[var(--text-primary)]">
+                      <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)]">
                         {project.name}
                       </h3>
-                      <p className="font-sans text-xs xs:text-sm sm:text-base text-[var(--text-body)] mt-1.5 sm:mt-2 leading-relaxed max-w-3xl">
+                      <p className="font-sans text-xs sm:text-sm md:text-base text-[var(--text-body)] mt-1.5 sm:mt-2 leading-relaxed max-w-3xl">
                         {project.tagline}
                       </p>
                     </div>
 
                     {/* Action Links */}
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 shrink-0 w-full xs:w-auto">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto shrink-0 self-start lg:self-auto">
                       {project.links.live && (
                         <a
                           href={project.links.live}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors shadow-sm flex-1 xs:flex-initial"
+                          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--accent)] text-white text-xs sm:text-sm font-medium hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors shadow-sm"
                         >
                           <span>View Live Demo</span>
                           <FiExternalLink className="w-3.5 h-3.5" />
@@ -351,7 +351,7 @@ export function Projects() {
                           href={project.links.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs sm:text-sm font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors flex-1 xs:flex-initial"
+                          className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full border border-[var(--border)] bg-[var(--bg-elevated)] text-[var(--text-primary)] text-xs sm:text-sm font-medium hover:border-[var(--accent)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:outline-none transition-colors"
                         >
                           <FiGithub className="w-3.5 h-3.5" />
                           <span>View on GitHub</span>
@@ -361,7 +361,7 @@ export function Projects() {
                   </div>
 
                   {/* Tech Stack Chips Row */}
-                  <div className="flex flex-wrap items-center gap-1.5 xs:gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                     <span className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)] mr-1">
                       Stack:
                     </span>
@@ -371,7 +371,7 @@ export function Projects() {
                   </div>
 
                   {/* Cover Screenshot Image */}
-                  <div className="relative w-full h-44 xs:h-52 sm:h-64 md:h-72 lg:h-80 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0">
+                  <div className="relative w-full h-48 sm:h-64 md:h-72 lg:h-80 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0">
                     <Image
                       src={project.screenshots.cover}
                       alt={project.screenshots.coverAlt}
@@ -383,11 +383,11 @@ export function Projects() {
                   </div>
 
                   {/* Detailed Description Sections */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 pt-1 sm:pt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 pt-1 sm:pt-2">
                     {/* Left: Problem & How It Works */}
                     <div className="flex flex-col gap-4 sm:gap-5 text-left">
                       <div>
-                        <h4 className="font-heading text-sm xs:text-base sm:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
+                        <h4 className="font-heading text-sm sm:text-base md:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
                           The Problem
                         </h4>
@@ -397,7 +397,7 @@ export function Projects() {
                       </div>
 
                       <div>
-                        <h4 className="font-heading text-sm xs:text-base sm:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
+                        <h4 className="font-heading text-sm sm:text-base md:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
                           How It Works
                         </h4>
@@ -415,7 +415,7 @@ export function Projects() {
                     {/* Right: Stack & Architecture + Secondary Screenshot */}
                     <div className="flex flex-col gap-4 sm:gap-5 text-left">
                       <div>
-                        <h4 className="font-heading text-sm xs:text-base sm:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
+                        <h4 className="font-heading text-sm sm:text-base md:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
                           Stack &amp; Architecture
                         </h4>
@@ -426,7 +426,7 @@ export function Projects() {
 
                       {project.reliabilityDetails && (
                         <div>
-                          <h4 className="font-heading text-sm xs:text-base sm:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
+                          <h4 className="font-heading text-sm sm:text-base md:text-lg font-bold text-[var(--text-primary)] mb-1.5 sm:mb-2 flex items-center gap-2">
                             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
                             Reliability &amp; Key Decisions
                           </h4>
@@ -437,7 +437,7 @@ export function Projects() {
                       )}
 
                       {/* Secondary Screenshot */}
-                      <div className="relative w-full h-32 xs:h-36 sm:h-44 md:h-48 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0 mt-0.5 sm:mt-1">
+                      <div className="relative w-full h-36 sm:h-44 md:h-48 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--bg-elevated)] shrink-0 mt-0.5 sm:mt-1">
                         <Image
                           src={project.screenshots.secondary}
                           alt={project.screenshots.secondaryAlt}

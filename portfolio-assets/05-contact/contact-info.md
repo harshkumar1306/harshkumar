@@ -2,7 +2,7 @@
 
 Open to engineering roles and website development.
 
-Email: 3000harshkumar@gmail.com
+Email: kumarharsh1306@gmail.com
 GitHub: https://github.com/harshkumar1306
 LinkedIn: https://www.linkedin.com/in/harsh-kumar-21b390257/
 WhatsApp: https://wa.me/917248132705

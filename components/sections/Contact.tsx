@@ -10,7 +10,7 @@ export function Contact() {
   const [copied, setCopied] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
   const [showEmailOptions, setShowEmailOptions] = useState(false);
-  const emailAddress = "3000harshkumar@gmail.com";
+  const emailAddress = "kumarharsh1306@gmail.com";
 
   const handleCopyEmail = async () => {
     try {
@@ -21,6 +21,18 @@ export function Contact() {
       }, 2000);
     } catch (err) {
       console.error("Failed to copy email:", err);
+    }
+  };
+
+  const handleOpenGmail = () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(emailAddress).catch((err) => {
+          console.error("Failed to copy email on open gmail:", err);
+        });
+      }
+    } catch (err) {
+      console.error("Failed to copy email on open gmail:", err);
     }
   };
 
@@ -247,9 +259,10 @@ export function Contact() {
                   </span>
                   <span className="text-[var(--text-muted)] hidden xs:inline">&bull;</span>
                   <a
-                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddress}&su=${encodeURIComponent("Engineering Roles / Website Development")}`}
+                    href="https://mail.google.com/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={handleOpenGmail}
                     className="text-[var(--accent)] hover:underline font-medium inline-flex items-center gap-1"
                   >
                     <span>Open in Gmail</span>
